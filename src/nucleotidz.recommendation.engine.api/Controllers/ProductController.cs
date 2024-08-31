@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using nucleotidz.recommendation.engine.api.Request.Product;
+using nucleotidz.recommendation.service.Implementation;
+using nucleotidz.recommendation.service.Interfaces;
 
 namespace nucleotidz.recommendation.engine.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class ProductController : ControllerBase
+    public class ProductController(IProductService productService) : ControllerBase
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -18,6 +21,15 @@ namespace nucleotidz.recommendation.engine.api.Controllers
         {
             await Task.CompletedTask;
             return Ok();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Create(ProductCreateRequest productCreateRequest)
+        {
+            int totalCreated = productService.Create(productCreateRequest.ToModel());
+            await Task.CompletedTask;
+            return Created();
         }
     }
 }
