@@ -12,7 +12,7 @@ namespace nucleotidz.recommendation.infrastructure.Vectorizer
         private readonly MilvusClient milvusClient;
         public VectorHelper()
         {
-            milvusClient = new MilvusClient("localhost");
+            milvusClient = new MilvusClient("standalone");
         }
         public async Task<bool> HasCollection(string collectionName)
         {
@@ -24,7 +24,7 @@ namespace nucleotidz.recommendation.infrastructure.Vectorizer
             return await milvusClient.CreateCollectionAsync(collectionName, schema);
         }
         public MilvusCollection GetCollection(string collectionName)
-        {
+        {            
             return milvusClient.GetCollection(collectionName);
         }
     }

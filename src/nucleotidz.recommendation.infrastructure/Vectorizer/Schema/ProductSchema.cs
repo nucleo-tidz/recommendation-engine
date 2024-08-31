@@ -10,7 +10,7 @@ namespace nucleotidz.recommendation.infrastructure.Vectorizer.Schema
             {
               FieldSchema.CreateVarchar("product_code", maxLength: 200, isPrimaryKey: true),
               FieldSchema.CreateVarchar("product_name", maxLength: 1000),
-               FieldSchema.CreateFloatVector("product_description", dimension: 2)
+               FieldSchema.CreateFloatVector("product_description", dimension: 1536)
             }
         };
     }
