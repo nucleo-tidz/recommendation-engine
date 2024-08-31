@@ -1,0 +1,6 @@
+@nucleotidz.recommendation.engine.schema.manager_HostAddress = http://localhost:5082
+
+GET {{nucleotidz.recommendation.engine.schema.manager_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

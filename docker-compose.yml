@@ -102,3 +102,14 @@ services:
     depends_on:
       - "etcd"
       - "minio"
+
+  nucleotidz.recommendation.engine.schema.manager:
+    image: ${DOCKER_REGISTRY-}nucleotidzrecommendationengineschemamanager
+    build:
+      context: .
+      dockerfile: src/nucleotidz.recommendation.engine.schema.manager/Dockerfile
+    depends_on:
+      - "standalone"
+    networks:
+      - nucleotidz
+

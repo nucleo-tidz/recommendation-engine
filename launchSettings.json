@@ -5,7 +5,9 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "nucleotidz.recommendation.engine.api": "StartDebugging",
-        "nucleotidz.recommendation.queue.consumer": "StartDebugging"
+        "nucleotidz.recommendation.queue.consumer": "StartDebugging",
+        "nucleotidz.recommendation.engine.collection.manager": "StartDebugging",
+        "nucleotidz.recommendation.engine.schema.manager": "StartDebugging"
       }
     }
   }

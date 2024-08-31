@@ -1,16 +1,12 @@
 ﻿using Milvus.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using nucleotidz.recommendation.infrastructure.Interfaces;
 
-namespace nucleotidz.recommendation.infrastructure.Vectorizer
+namespace nucleotidz.recommendation.infrastructure.Helpers
 {
-    public class VectorHelper
+    public class VectorDatabaseHelper: IVectorDatabaseHelper
     {
         private readonly MilvusClient milvusClient;
-        public VectorHelper()
+        public VectorDatabaseHelper()
         {
             milvusClient = new MilvusClient("standalone");
         }
@@ -24,7 +20,7 @@ namespace nucleotidz.recommendation.infrastructure.Vectorizer
             return await milvusClient.CreateCollectionAsync(collectionName, schema);
         }
         public MilvusCollection GetCollection(string collectionName)
-        {            
+        {
             return milvusClient.GetCollection(collectionName);
         }
     }

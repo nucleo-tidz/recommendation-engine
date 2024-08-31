@@ -6,6 +6,7 @@ using nucleotidz.recommendation.infrastructure;
 using MassTransit;
 using System.Reflection;
 using nucleotidz.recommendation.infrastructure.Respository;
+using nucleotidz.recommendation.infrastructure.Helpers;
 
 namespace nucleotidz.recommendation.infrastructure
 {
@@ -32,7 +33,8 @@ namespace nucleotidz.recommendation.infrastructure
                 Kernel kernel = kernelBuilder.Build();
                 return kernel;
             }).AddTransient<ITextVectorizer, TextVectorizer>()
-              .AddTransient<IVectorizerFactory, VectorizerFactory>();
+              .AddTransient<IVectorizerFactory, VectorizerFactory>()
+              .AddTransient<IVectorDatabaseHelper, VectorDatabaseHelper>();
             return services;
         }
         public static IServiceCollection AddVectorRepoistory(this IServiceCollection services)
