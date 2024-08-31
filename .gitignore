@@ -5,4 +5,10 @@
 **/.vs
 **/[Bb]in/
 **/[Oo]bj/
-/nucleotidz.recommendation.engine.api/appsettings.Local.json
+**/*.[Ll]ocal.json
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.log
+*.pubxml

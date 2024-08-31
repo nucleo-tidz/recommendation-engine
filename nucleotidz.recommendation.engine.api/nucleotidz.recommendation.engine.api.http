@@ -1,0 +1,6 @@
+@nucleotidz.recommendation.engine.api_HostAddress = http://localhost:5265
+
+GET {{nucleotidz.recommendation.engine.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
