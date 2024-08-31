@@ -23,3 +23,14 @@ services:
       dockerfile: src/nucleotidz.recommendation.engine.api/Dockerfile
     networks:
       - nucleotidz
+
+  nucleotidz.recommendation.queue.consumer:
+    image: ${DOCKER_REGISTRY-}nucleotidzrecommendationqueueconsumer
+    depends_on:
+       - rabbitmq
+    build:
+      context: .
+      dockerfile: src/nucleotidz.recommendation.queue.consumer/Dockerfile
+    networks:
+      - nucleotidz
+

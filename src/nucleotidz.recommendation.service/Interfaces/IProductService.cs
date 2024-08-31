@@ -4,7 +4,7 @@ namespace nucleotidz.recommendation.service.Interfaces
 {
     public interface IProductService
     {
-        int Create(ProductEntity product);
+        Task<int> Create(ProductEntity product);
 
     }
 }

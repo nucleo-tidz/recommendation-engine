@@ -27,8 +27,7 @@ namespace nucleotidz.recommendation.engine.api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(ProductCreateRequest productCreateRequest)
         {
-            int totalCreated = productService.Create(productCreateRequest.ToModel());
-            await Task.CompletedTask;
+            int totalCreated =await productService.Create(productCreateRequest.ToModel());
             return Created();
         }
     }

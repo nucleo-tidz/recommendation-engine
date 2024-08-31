@@ -3,12 +3,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using nucleotidz.recommendation.infrastructure.Interfaces;
 using nucleotidz.recommendation.infrastructure;
+using MassTransit;
+using System.Reflection;
 
 namespace nucleotidz.recommendation.infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddArtificialIntelligence(this IServiceCollection services, IConfiguration configuration = default)
+        public static IServiceCollection AddArtificialIntelligence(this IServiceCollection services, IConfiguration configuration )
         {
             services.AddTransient<Kernel>(serviceProvider =>
             {
@@ -31,6 +33,42 @@ namespace nucleotidz.recommendation.infrastructure
             }).AddTransient<IVectorizer, Vectorizer>()
               .AddTransient<IVectorizerFactory, VectorizerFactory>();
             return services;
+        }
+        public static IServiceCollection AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
+        {
+            return services.AddMassTransit(busConfigurator =>
+            {
+                busConfigurator.SetKebabCaseEndpointNameFormatter();
+
+                busConfigurator.UsingRabbitMq((context, configurator) =>
+                {
+                    configurator.Host(configuration["Queue:Host"], "/", h =>
+                    {
+                        h.Username(configuration["Queue:Username"]);
+                        h.Password(configuration["Queue:Password"]);
+                    });
+                    configurator.ConfigureEndpoints(context);
+                });
+            });
+        }
+
+        public static IServiceCollection AddRabbitMqConsumer(this IServiceCollection services, IConfiguration configuration)
+        {
+            return services.AddMassTransit(busConfigurator =>
+            {
+                busConfigurator.SetKebabCaseEndpointNameFormatter();
+                var entryAssembly = Assembly.GetExecutingAssembly();
+                busConfigurator.AddConsumers(entryAssembly);
+                busConfigurator.UsingRabbitMq((context, configurator) =>
+                {
+                    configurator.Host(configuration["Queue:Host"], "/", h =>
+                    {
+                        h.Username(configuration["Queue:Username"]);
+                        h.Password(configuration["Queue:Password"]);
+                    });
+                    configurator.ConfigureEndpoints(context);
+                });
+            });
         }
     }
 }
