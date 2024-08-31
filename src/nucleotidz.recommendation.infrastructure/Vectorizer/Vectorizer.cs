@@ -1,14 +1,12 @@
-﻿using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
-using nucleotidz.recommendation.infrastructure.Interfaces;
+﻿using nucleotidz.recommendation.infrastructure.Interfaces;
 
 namespace nucleotidz.recommendation.infrastructure
 {
-    public class Vectorizer(Kernel kernel) : IVectorizer
+    public class Vectorizer(IVectorizerFactory vectorizerFactory) : IVectorizer
     {
         public async Task GenerateEmbeddingsAsync(string[] input)
         {
-            var vector = await (kernel.GetRequiredService<AzureOpenAITextEmbeddingGenerationService>()).GenerateEmbeddingsAsync(input);
+            IList<ReadOnlyMemory<float>> vector = await vectorizerFactory.Create().GenerateEmbeddingsAsync(input);
         }
     }
 }

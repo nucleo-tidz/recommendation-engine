@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using nucleotidz.recommendation.infrastructure.Interfaces;
+using nucleotidz.recommendation.infrastructure;
 
 namespace nucleotidz.recommendation.infrastructure
 {
@@ -27,7 +28,8 @@ namespace nucleotidz.recommendation.infrastructure
                 #endregion
                 Kernel kernel = kernelBuilder.Build();
                 return kernel;
-            }).AddTransient<IVectorizer, Vectorizer>();
+            }).AddTransient<IVectorizer, Vectorizer>()
+              .AddTransient<IVectorizerFactory, VectorizerFactory>();
             return services;
         }
     }

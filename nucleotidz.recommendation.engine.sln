@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.vectoriser", "src\nucleotidz.recommendation.vectoriser\nucleotidz.recommendation.vectoriser.csproj", "{FA2F7EFF-025B-404B-B4AB-8A5C4D022597}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.service", "src\nucleotidz.recommendation.service\nucleotidz.recommendation.service.csproj", "{0613D839-5462-40CB-831C-07CB269F0791}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.model", "src\nucleotidz.recommendation.model\nucleotidz.recommendation.model.csproj", "{38BA9E60-B077-4098-BD45-B2859A44001C}"
@@ -26,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FA2F7EFF-025B-404B-B4AB-8A5C4D022597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA2F7EFF-025B-404B-B4AB-8A5C4D022597}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA2F7EFF-025B-404B-B4AB-8A5C4D022597}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA2F7EFF-025B-404B-B4AB-8A5C4D022597}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0613D839-5462-40CB-831C-07CB269F0791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0613D839-5462-40CB-831C-07CB269F0791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0613D839-5462-40CB-831C-07CB269F0791}.Release|Any CPU.ActiveCfg = Release|Any CPU
