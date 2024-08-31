@@ -7,6 +7,7 @@ using System.Reflection;
 var builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureServices((config, services) =>
     {
+        services.AddArtificialIntelligence(config.Configuration);
         services.AddMassTransit(busConfigurator =>
         {
             busConfigurator.SetKebabCaseEndpointNameFormatter();

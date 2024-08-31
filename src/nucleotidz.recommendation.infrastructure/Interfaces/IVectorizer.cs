@@ -2,6 +2,6 @@
 {
     public interface IVectorizer
     {
-        Task GenerateEmbeddingsAsync(string[] input);
+        Task<IList<ReadOnlyMemory<float>>> GenerateEmbeddingsAsync(string[] input);
     }
 }
