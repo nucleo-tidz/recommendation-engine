@@ -5,12 +5,13 @@ using nucleotidz.recommendation.infrastructure.Interfaces;
 using nucleotidz.recommendation.infrastructure;
 using MassTransit;
 using System.Reflection;
+using nucleotidz.recommendation.infrastructure.Respository;
 
 namespace nucleotidz.recommendation.infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddArtificialIntelligence(this IServiceCollection services, IConfiguration configuration )
+        public static IServiceCollection AddArtificialIntelligence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<Kernel>(serviceProvider =>
             {
@@ -30,9 +31,13 @@ namespace nucleotidz.recommendation.infrastructure
                 #endregion
                 Kernel kernel = kernelBuilder.Build();
                 return kernel;
-            }).AddTransient<IVectorizer, Vectorizer>()
+            }).AddTransient<ITextVectorizer, TextVectorizer>()
               .AddTransient<IVectorizerFactory, VectorizerFactory>();
             return services;
+        }
+        public static IServiceCollection AddVectorRepoistory(this IServiceCollection services)
+        {
+            return services.AddTransient<IProductVectorRepository, ProductVectorRepository>();
         }
         public static IServiceCollection AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {
@@ -49,7 +54,7 @@ namespace nucleotidz.recommendation.infrastructure
                     });
                     configurator.ConfigureEndpoints(context);
                 });
-            }).AddTransient<IEventPublisher,EventPublisher>();
+            }).AddTransient<IEventPublisher, EventPublisher>();
         }
 
         public static IServiceCollection AddRabbitMqConsumer(this IServiceCollection services, IConfiguration configuration)

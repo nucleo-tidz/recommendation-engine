@@ -2,7 +2,7 @@
 
 namespace nucleotidz.recommendation.infrastructure
 {
-    public class Vectorizer(IVectorizerFactory vectorizerFactory) : IVectorizer
+    public class TextVectorizer(IVectorizerFactory vectorizerFactory) : ITextVectorizer
     {
         public async Task<IList<ReadOnlyMemory<float>>> GenerateEmbeddingsAsync(string[] input)
         {

@@ -12,3 +12,4 @@
 *.sln.docstates
 *.log
 *.pubxml
+/volumes

@@ -8,6 +8,7 @@ var builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureServices((config, services) =>
     {
         services.AddArtificialIntelligence(config.Configuration);
+        services.AddVectorRepoistory();
         services.AddMassTransit(busConfigurator =>
         {
             busConfigurator.SetKebabCaseEndpointNameFormatter();

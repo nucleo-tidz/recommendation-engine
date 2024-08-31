@@ -1,6 +1,6 @@
 ﻿namespace nucleotidz.recommendation.infrastructure.Interfaces
 {
-    public interface IVectorizer
+    public interface ITextVectorizer
     {
         Task<IList<ReadOnlyMemory<float>>> GenerateEmbeddingsAsync(string[] input);
     }
