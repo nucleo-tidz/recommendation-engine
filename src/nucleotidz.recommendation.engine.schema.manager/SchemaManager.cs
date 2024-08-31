@@ -22,5 +22,9 @@ namespace nucleotidz.recommendation.engine.schema.manager
                 }
             }
         }
+        public async Task CreateIndex(string collectionName, string indexName, string fieldName)
+        {
+            await vectorDatabaseHelper.CreateIndex(collectionName, indexName, fieldName);
+        }
     }
 }

@@ -17,9 +17,9 @@ namespace nucleotidz.recommendation.engine.api.Controllers
         /// <summary>
         /// Returns All the product 
         /// </summary>
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string description)
         {
-            await Task.CompletedTask;
+           await productService.Search(description); 
             return Ok();
         }
 

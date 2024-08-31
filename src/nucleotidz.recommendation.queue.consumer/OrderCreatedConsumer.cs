@@ -19,7 +19,7 @@ namespace nucleotidz.recommendation.queue.consumer
         {
             var productVector = await vectorizer.GenerateEmbeddingsAsync(new string[] { productCreatedEvent.Description });
             ReadOnlyMemory<float>[] rvector = new ReadOnlyMemory<float>[1] { productVector[0].ToArray() };
-            await productVectorRepository.SaveProductVector(rvector, productCreatedEvent.Code, productCreatedEvent.Description);
+            await productVectorRepository.SaveProductVector(rvector, productCreatedEvent.Code, productCreatedEvent.Name);
             return productVector[0].ToArray();
         }
     }

@@ -10,6 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 builder.Services.AddRabbitMq(builder.Configuration);
+builder.Services.AddArtificialIntelligence(builder.Configuration);
+builder.Services.AddVectorRepoistory();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

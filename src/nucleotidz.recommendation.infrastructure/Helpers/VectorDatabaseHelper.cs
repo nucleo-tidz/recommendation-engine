@@ -3,7 +3,7 @@ using nucleotidz.recommendation.infrastructure.Interfaces;
 
 namespace nucleotidz.recommendation.infrastructure.Helpers
 {
-    public class VectorDatabaseHelper: IVectorDatabaseHelper
+    public class VectorDatabaseHelper : IVectorDatabaseHelper
     {
         private readonly MilvusClient milvusClient;
         public VectorDatabaseHelper()
@@ -22,6 +22,11 @@ namespace nucleotidz.recommendation.infrastructure.Helpers
         public MilvusCollection GetCollection(string collectionName)
         {
             return milvusClient.GetCollection(collectionName);
+        }
+        public async Task CreateIndex(string collectionName, string indexName, string fieldName)
+        {
+            var collection = milvusClient.GetCollection(collectionName);
+            await collection.CreateIndexAsync(fieldName: fieldName, indexType: IndexType.Flat, metricType: SimilarityMetricType.L2, indexName: indexName);
         }
     }
 }

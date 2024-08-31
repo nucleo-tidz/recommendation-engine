@@ -7,6 +7,7 @@ namespace nucleotidz.recommendation.infrastructure.Interfaces
         Task<bool> HasCollection(string collectionName);
         Task<MilvusCollection> CreateCollection(string collectionName, CollectionSchema schema);
         MilvusCollection GetCollection(string collectionName);
+        Task CreateIndex(string collectionName, string indexName, string fieldName);
 
     }
 }
