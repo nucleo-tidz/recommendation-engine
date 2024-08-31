@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\nucleotidz.recommendation.infrastructure\nucleotidz.recommendation.infrastructure.csproj" />
+    <ProjectReference Include="..\nucleotidz.recommendation.model\nucleotidz.recommendation.model.csproj" />
+  </ItemGroup>
+
 </Project>
