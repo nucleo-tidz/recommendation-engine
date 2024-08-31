@@ -1,0 +1,25 @@
+version: '3.4'
+networks:
+  nucleotidz:
+    driver: bridge
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: 'rabbitmq'
+    hostname: "nucleohost"
+    ports:
+        - 5672:5672
+        - 15672:15672
+    networks:
+      - nucleotidz
+    restart: unless-stopped
+
+  nucleotidz.recommendation.engine.api:
+    image: ${DOCKER_REGISTRY-}nucleotidzrecommendationengineapi
+    depends_on:
+       - rabbitmq
+    build:
+      context: .
+      dockerfile: src/nucleotidz.recommendation.engine.api/Dockerfile
+    networks:
+      - nucleotidz

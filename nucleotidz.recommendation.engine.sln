@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nucleotidz.recommendation.vectoriser", "src\nucleotidz.recommendation.vectoriser\nucleotidz.recommendation.vectoriser.csproj", "{FA2F7EFF-025B-404B-B4AB-8A5C4D022597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.vectoriser", "src\nucleotidz.recommendation.vectoriser\nucleotidz.recommendation.vectoriser.csproj", "{FA2F7EFF-025B-404B-B4AB-8A5C4D022597}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nucleotidz.recommendation.service", "src\nucleotidz.recommendation.service\nucleotidz.recommendation.service.csproj", "{0613D839-5462-40CB-831C-07CB269F0791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.service", "src\nucleotidz.recommendation.service\nucleotidz.recommendation.service.csproj", "{0613D839-5462-40CB-831C-07CB269F0791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nucleotidz.recommendation.model", "src\nucleotidz.recommendation.model\nucleotidz.recommendation.model.csproj", "{38BA9E60-B077-4098-BD45-B2859A44001C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.model", "src\nucleotidz.recommendation.model\nucleotidz.recommendation.model.csproj", "{38BA9E60-B077-4098-BD45-B2859A44001C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nucleotidz.recommendation.infrastructure", "src\nucleotidz.recommendation.infrastructure\nucleotidz.recommendation.infrastructure.csproj", "{2968BC9C-DC5C-42B4-9B94-CE67E69370A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.infrastructure", "src\nucleotidz.recommendation.infrastructure\nucleotidz.recommendation.infrastructure.csproj", "{2968BC9C-DC5C-42B4-9B94-CE67E69370A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nucleotidz.recommendation.engine.api", "src\nucleotidz.recommendation.engine.api\nucleotidz.recommendation.engine.api.csproj", "{CB0D7EE7-EFC9-4A48-83BB-7D52DFA8EF95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.engine.api", "src\nucleotidz.recommendation.engine.api\nucleotidz.recommendation.engine.api.csproj", "{CB0D7EE7-EFC9-4A48-83BB-7D52DFA8EF95}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7F3DB83B-6CFC-4F08-B1EF-5D63A010721B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{CB0D7EE7-EFC9-4A48-83BB-7D52DFA8EF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB0D7EE7-EFC9-4A48-83BB-7D52DFA8EF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB0D7EE7-EFC9-4A48-83BB-7D52DFA8EF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F3DB83B-6CFC-4F08-B1EF-5D63A010721B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F3DB83B-6CFC-4F08-B1EF-5D63A010721B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F3DB83B-6CFC-4F08-B1EF-5D63A010721B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F3DB83B-6CFC-4F08-B1EF-5D63A010721B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
