@@ -49,7 +49,7 @@ namespace nucleotidz.recommendation.infrastructure
                     });
                     configurator.ConfigureEndpoints(context);
                 });
-            });
+            }).AddTransient<IEventPublisher,EventPublisher>();
         }
 
         public static IServiceCollection AddRabbitMqConsumer(this IServiceCollection services, IConfiguration configuration)
