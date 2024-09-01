@@ -3,7 +3,7 @@ using nucleotidz.recommendation.infrastructure.Interfaces;
 
 namespace nucleotidz.recommendation.infrastructure.Helpers
 {
-    public class VectorDatabaseHelper : IVectorDatabaseHelper, IDisposable
+    public class VectorDatabaseHelper : IVectorDatabaseHelper
     {
         private readonly MilvusClient milvusClient;
         public VectorDatabaseHelper()
@@ -29,9 +29,5 @@ namespace nucleotidz.recommendation.infrastructure.Helpers
             await collection.CreateIndexAsync(fieldName: fieldName, indexType: IndexType.Flat, metricType: SimilarityMetricType.L2, indexName: indexName);
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

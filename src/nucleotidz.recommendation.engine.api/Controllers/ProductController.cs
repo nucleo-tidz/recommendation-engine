@@ -27,8 +27,7 @@ namespace nucleotidz.recommendation.engine.api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(string email)
         {
-            await productService.Suggest(email);
-            return Ok();
+            return Ok(await productService.Suggest(email));
         }
     }
 }

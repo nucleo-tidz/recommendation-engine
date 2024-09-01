@@ -19,7 +19,7 @@ namespace nucleotidz.recommendation.infrastructure.Respository
                                        });
             }
         }
-        public async Task Search(ReadOnlyMemory<float>[] vectors)
+        public async Task<IEnumerable<string>> Search(ReadOnlyMemory<float>[] vectors)
         {
             SearchParameters parameters = new()
             {
@@ -32,8 +32,10 @@ namespace nucleotidz.recommendation.infrastructure.Respository
             MilvusCollection milvusCollection = vectorDatabaseHelper.GetCollection("products");
             await milvusCollection.LoadAsync();
             await milvusCollection.WaitForCollectionLoadAsync();
-           var result = await milvusCollection.SearchAsync(vectorFieldName: "product_description", vectors: vectors, SimilarityMetricType.L2, limit: 10, parameters);
+            var result = await milvusCollection.SearchAsync(vectorFieldName: "product_description", vectors: vectors, SimilarityMetricType.L2, limit: 10, parameters);
+            string[] searchResult = ((FieldData<string>)result.FieldsData[0]).Data.ToArray();
             await milvusCollection.ReleaseAsync();
+            return searchResult;
         }
     }
 

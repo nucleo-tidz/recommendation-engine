@@ -12,12 +12,12 @@ namespace nucleotidz.recommendation.service.Implementation
         IProductVectorRepository productVectorRepository,
         IProductRepository productRepository) : IProductService
     {
-        public async Task Suggest(string email)
+        public async Task<IEnumerable<string>> Suggest(string email)
         {
             string lastOrder = await productRepository.Get(email);
             float[] vector = JsonSerializer.Deserialize<float[]>(lastOrder);
             ReadOnlyMemory<float>[] rvector = new ReadOnlyMemory<float>[1] { vector };
-            await productVectorRepository.Search(rvector);
+            return await productVectorRepository.Search(rvector);
         }
         public async Task<int> Create(Stream stream)
         {
