@@ -23,5 +23,5 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore nucleotidz.recommendation.engine.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build nucleotidz.recommendation.engine.sln --no-restore
 
