@@ -6,6 +6,7 @@ namespace nucleotidz.recommendation.service.Interfaces
     {
         Task<int> Create(ProductEntity product);
         Task Search(string description);
+        Task<int> Create(Stream stream);
 
     }
 }

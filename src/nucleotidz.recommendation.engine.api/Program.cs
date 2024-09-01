@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 builder.Services.AddRabbitMq(builder.Configuration);
 builder.Services.AddArtificialIntelligence(builder.Configuration);
-builder.Services.AddVectorRepoistory();
+builder.Services.AddVectorRepoistory().AddRepoistory();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

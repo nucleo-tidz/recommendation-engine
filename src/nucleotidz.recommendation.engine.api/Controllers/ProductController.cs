@@ -13,13 +13,9 @@ namespace nucleotidz.recommendation.engine.api.Controllers
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-
-        /// <summary>
-        /// Returns All the product 
-        /// </summary>
         public async Task<IActionResult> Get(string description)
         {
-           await productService.Search(description); 
+           await productService.Search(description);
             return Ok();
         }
 
@@ -28,6 +24,14 @@ namespace nucleotidz.recommendation.engine.api.Controllers
         public async Task<IActionResult> Create(ProductCreateRequest productCreateRequest)
         {
             int totalCreated =await productService.Create(productCreateRequest.ToModel());
+            return Created();
+        }
+
+        [HttpPost("bulk")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Create(IFormFile file)
+        {
+            int totalCreated = await productService.Create(file.OpenReadStream());
             return Created();
         }
     }

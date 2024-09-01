@@ -41,6 +41,10 @@ namespace nucleotidz.recommendation.infrastructure
         {
             return services.AddTransient<IProductVectorRepository, ProductVectorRepository>();
         }
+        public static IServiceCollection AddRepoistory(this IServiceCollection services)
+        {
+            return services.AddTransient<IProductRepository, ProductRepository>();
+        }
         public static IServiceCollection AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {
             return services.AddMassTransit(busConfigurator =>
