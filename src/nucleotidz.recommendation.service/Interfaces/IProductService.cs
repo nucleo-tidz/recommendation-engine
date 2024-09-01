@@ -4,9 +4,9 @@ namespace nucleotidz.recommendation.service.Interfaces
 {
     public interface IProductService
     {
-        Task<int> Create(ProductEntity product);
-        Task Search(string description);
+        Task Suggest(string email);
         Task<int> Create(Stream stream);
+        Task<IEnumerable<ProductEntity>> Get();
 
     }
 }

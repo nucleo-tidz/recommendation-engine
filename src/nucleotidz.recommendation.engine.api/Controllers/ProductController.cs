@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using nucleotidz.recommendation.engine.api.Request.Product;
+using nucleotidz.recommendation.infrastructure.Interfaces;
 using nucleotidz.recommendation.service.Implementation;
 using nucleotidz.recommendation.service.Interfaces;
 
@@ -13,18 +14,9 @@ namespace nucleotidz.recommendation.engine.api.Controllers
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get(string description)
+        public async Task<IActionResult> Get()
         {
-           await productService.Search(description);
-            return Ok();
-        }
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(ProductCreateRequest productCreateRequest)
-        {
-            int totalCreated =await productService.Create(productCreateRequest.ToModel());
-            return Created();
+            return Ok(await productService.Get());
         }
 
         [HttpPost("bulk")]
@@ -33,6 +25,14 @@ namespace nucleotidz.recommendation.engine.api.Controllers
         {
             int totalCreated = await productService.Create(file.OpenReadStream());
             return Created();
+        }
+
+        [HttpGet("suggest")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Get(string email)
+        {
+            await productService.Suggest(email);
+            return Ok();
         }
     }
 }

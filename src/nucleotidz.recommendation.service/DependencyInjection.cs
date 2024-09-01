@@ -8,7 +8,8 @@ namespace nucleotidz.recommendation.service
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            return services.AddTransient<IProductService, ProductService>();
+            return services.AddTransient<IProductService, ProductService>()
+                .AddTransient<IOrderService, OrderService>();
         }
     }
 }

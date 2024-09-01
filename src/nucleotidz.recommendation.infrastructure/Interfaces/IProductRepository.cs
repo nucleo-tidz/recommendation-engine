@@ -1,9 +1,4 @@
 ﻿using nucleotidz.recommendation.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace nucleotidz.recommendation.infrastructure.Interfaces
 {
@@ -11,5 +6,7 @@ namespace nucleotidz.recommendation.infrastructure.Interfaces
     {
         Task<int> Save(IEnumerable<ProductEntity> productEntities);
         Task<int> Save(string productCode, float[] vectors);
+        Task<IEnumerable<ProductEntity>> Get();
+        Task<string> Get(string Email);
     }
 }

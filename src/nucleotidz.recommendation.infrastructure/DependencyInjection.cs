@@ -43,7 +43,8 @@ namespace nucleotidz.recommendation.infrastructure
         }
         public static IServiceCollection AddRepoistory(this IServiceCollection services)
         {
-            return services.AddTransient<IProductRepository, ProductRepository>();
+            return services.AddTransient<IProductRepository, ProductRepository>()
+                .AddTransient<IOrderRepository, OrderRepository>();
         }
         public static IServiceCollection AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {

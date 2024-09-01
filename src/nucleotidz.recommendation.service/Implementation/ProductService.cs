@@ -1,25 +1,22 @@
 ﻿using CsvHelper;
-using MassTransit;
 using nucleotidz.recommendation.infrastructure.Interfaces;
-using nucleotidz.recommendation.infrastructure.Respository;
 using nucleotidz.recommendation.model;
 using nucleotidz.recommendation.model.Events;
 using nucleotidz.recommendation.service.Interfaces;
 using System.Globalization;
+using System.Text.Json;
 
 namespace nucleotidz.recommendation.service.Implementation
 {
-    public class ProductService(IEventPublisher eventPublisher, ITextVectorizer vectorizer, IProductVectorRepository productVectorRepository, IProductRepository productRepository) : IProductService
+    public class ProductService(IEventPublisher eventPublisher, ITextVectorizer vectorizer,
+        IProductVectorRepository productVectorRepository,
+        IProductRepository productRepository) : IProductService
     {
-        public async Task<int> Create(ProductEntity product)
+        public async Task Suggest(string email)
         {
-            await eventPublisher.Publish(new ProductCreatedEvent { @event = "Product Created", Code = product.Code, Description = product.Description, Name = product.Name });
-            return default;
-        }
-        public async Task Search(string description)
-        {
-            var productVector = await vectorizer.GenerateEmbeddingsAsync(new string[] { description });
-            ReadOnlyMemory<float>[] rvector = new ReadOnlyMemory<float>[1] { productVector[0].ToArray() };
+            string lastOrder = await productRepository.Get(email);
+            float[] vector = JsonSerializer.Deserialize<float[]>(lastOrder);
+            ReadOnlyMemory<float>[] rvector = new ReadOnlyMemory<float>[1] { vector };
             await productVectorRepository.Search(rvector);
         }
         public async Task<int> Create(Stream stream)
@@ -35,6 +32,11 @@ namespace nucleotidz.recommendation.service.Implementation
                     ));
                 return records;
             }
+        }
+
+        public async Task<IEnumerable<ProductEntity>> Get()
+        {
+            return await productRepository.Get();
         }
     }
 }

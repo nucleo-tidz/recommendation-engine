@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using nucleotidz.recommendation.infrastructure.Interfaces;
 using nucleotidz.recommendation.model;
 using System.Data;
+using System.Numerics;
 using System.Text.Json;
 
 namespace nucleotidz.recommendation.infrastructure.Respository
@@ -50,6 +51,22 @@ namespace nucleotidz.recommendation.infrastructure.Respository
                              INSERT (productcode, vector) VALUES (source.code, source.vector);";
             await using var connection = new SqlConnection(_connectionString);
             return await connection.ExecuteAsync(sql, new { code = productCode, vector = vector });
+        }
+        public async Task<IEnumerable<ProductEntity>> Get()
+        {
+            var sql = @"select Code,Name,Description from dbo.Product";
+            await using var connection = new SqlConnection(_connectionString);
+            return await connection.QueryAsync<ProductEntity>(sql);
+        }
+
+        public async Task<string> Get(string Email)
+        {
+            var sql = @"select pv.Vector from dbo.Product p
+                       join dbo.ProductVector pv on p.Code=pv.ProductCode
+                       join  dbo.[Order] o on  o.ProductCode=p.Code
+                       where o.CustomerEmail=@email";
+            await using var connection = new SqlConnection(_connectionString);
+            return await connection.QueryFirstOrDefaultAsync<string>(sql, new { email = Email });
         }
     }
 }

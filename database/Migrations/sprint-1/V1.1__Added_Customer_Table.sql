@@ -1,19 +1,21 @@
 IF NOT EXISTS (
 		SELECT *
 		FROM sys.objects
-		WHERE object_id = Object_id(N'dbo.Customer') AND type = 'U'
+		WHERE object_id = Object_id(N'dbo.Order') AND type = 'U'
 		)
 BEGIN
-	CREATE TABLE dbo.Customer
+	CREATE TABLE [dbo].[Order]
 	(
-	Email NVARCHAR(50) NOT NULL,
-	Name NVARCHAR(120) NOT NULL,
-	
-	  CONSTRAINT PK_Customer
+	  Id INT NOT NULL IDENTITY(1,1),
+	  ProductCode NVARCHAR(50),
+	  CustomerEmail  NVARCHAR(50) NOT NULL,
+
+	  CONSTRAINT PK_Order
             PRIMARY KEY
             (
-                Email 
+                Id 
             )
 	)
 END
 GO
+
