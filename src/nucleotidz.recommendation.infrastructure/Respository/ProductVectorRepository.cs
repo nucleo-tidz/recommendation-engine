@@ -21,17 +21,18 @@ namespace nucleotidz.recommendation.infrastructure.Respository
         }
         public async Task Search(ReadOnlyMemory<float>[] vectors)
         {
-            var parameters = new SearchParameters
+            SearchParameters parameters = new()
             {
                 OutputFields = { "product_name" },
                 ConsistencyLevel = ConsistencyLevel.Strong,
-                ExtraParameters = { ["nprobe"] = "1024" }
+                ExtraParameters = { ["nprobe"] = "1024" },
+
             };
 
             MilvusCollection milvusCollection = vectorDatabaseHelper.GetCollection("products");
             await milvusCollection.LoadAsync();
             await milvusCollection.WaitForCollectionLoadAsync();
-            SearchResults searchResult = await milvusCollection.SearchAsync(vectorFieldName: "product_description", vectors: vectors, SimilarityMetricType.L2, limit: 10, parameters);
+            _ = await milvusCollection.SearchAsync(vectorFieldName: "product_description", vectors: vectors, SimilarityMetricType.L2, limit: 10, parameters);
             await milvusCollection.ReleaseAsync();
         }
     }

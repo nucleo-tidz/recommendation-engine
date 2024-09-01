@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MassTransit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
-using nucleotidz.recommendation.infrastructure.Interfaces;
-using nucleotidz.recommendation.infrastructure;
-using MassTransit;
-using System.Reflection;
-using nucleotidz.recommendation.infrastructure.Respository;
 using nucleotidz.recommendation.infrastructure.Helpers;
+using nucleotidz.recommendation.infrastructure.Interfaces;
+using nucleotidz.recommendation.infrastructure.Respository;
+using nucleotidz.recommendation.infrastructure.Vectorizer;
+using System.Reflection;
 
 namespace nucleotidz.recommendation.infrastructure
 {
@@ -14,13 +14,10 @@ namespace nucleotidz.recommendation.infrastructure
     {
         public static IServiceCollection AddArtificialIntelligence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<Kernel>(serviceProvider =>
+            _ = services.AddTransient(serviceProvider =>
             {
                 IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
-
-#pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-                kernelBuilder.Services.AddAzureOpenAITextEmbeddingGeneration("vectoriser", configuration["AzureOpenAI:Endpoint"], configuration["AzureOpenAI:AuthKey"]);
-#pragma warning restore SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+                _ = kernelBuilder.Services.AddAzureOpenAITextEmbeddingGeneration("vectoriser", configuration["AzureOpenAI:Endpoint"], configuration["AzureOpenAI:AuthKey"]);
                 #region Azure OpenAI
                 /*
                 kernelBuilder.Services.AddAzureOpenAIChatCompletion("gpt-4o",
@@ -69,7 +66,7 @@ namespace nucleotidz.recommendation.infrastructure
             return services.AddMassTransit(busConfigurator =>
             {
                 busConfigurator.SetKebabCaseEndpointNameFormatter();
-                var entryAssembly = Assembly.GetExecutingAssembly();
+                Assembly entryAssembly = Assembly.GetExecutingAssembly();
                 busConfigurator.AddConsumers(entryAssembly);
                 busConfigurator.UsingRabbitMq((context, configurator) =>
                 {

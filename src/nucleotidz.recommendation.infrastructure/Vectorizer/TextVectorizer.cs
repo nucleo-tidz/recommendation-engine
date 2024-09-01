@@ -1,6 +1,6 @@
 ﻿using nucleotidz.recommendation.infrastructure.Interfaces;
 
-namespace nucleotidz.recommendation.infrastructure
+namespace nucleotidz.recommendation.infrastructure.Vectorizer
 {
     public class TextVectorizer(IVectorizerFactory vectorizerFactory) : ITextVectorizer
     {

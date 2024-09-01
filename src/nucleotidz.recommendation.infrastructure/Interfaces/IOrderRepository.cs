@@ -2,6 +2,6 @@
 {
     public interface IOrderRepository
     {
-        public Task<int> Create(string productCode,string customerEmail);
+        public Task<int> Create(string productCode, string customerEmail);
     }
 }

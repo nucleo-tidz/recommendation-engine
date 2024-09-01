@@ -1,14 +1,13 @@
 ﻿using nucleotidz.recommendation.model;
-using System.ComponentModel.DataAnnotations;
 
 namespace nucleotidz.recommendation.engine.api.Request.Product
 {
     public class ProductCreateRequest
     {
 
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public required string Code { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
     }
     public static class ProductEntityConvertor
     {

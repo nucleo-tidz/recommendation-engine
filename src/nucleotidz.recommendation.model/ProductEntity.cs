@@ -5,10 +5,10 @@ namespace nucleotidz.recommendation.model
     public class ProductEntity
     {
         [Required]
-        public string Code { get; set; }
+        public required string Code { get; set; }
         [Required]
-        public string Name { get; set; }
+        public required string Name { get; set; }
         [Required]
-        public string Description { get; set; }
+        public required string Description { get; set; }
     }
 }

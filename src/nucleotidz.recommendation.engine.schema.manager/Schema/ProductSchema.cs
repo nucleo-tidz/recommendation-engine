@@ -1,10 +1,10 @@
 ﻿using Milvus.Client;
 
-namespace nucleotidz.recommendation.engine.schema.manager
+namespace nucleotidz.recommendation.engine.schema.manager.Schema
 {
     public static class ProductSchema
     {
-        public static CollectionSchema schema = new CollectionSchema
+        public static CollectionSchema schema = new()
         {
             Fields =
             {

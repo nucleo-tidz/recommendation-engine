@@ -1,4 +1,5 @@
-﻿using nucleotidz.recommendation.infrastructure.Interfaces;
+﻿using nucleotidz.recommendation.engine.schema.manager.Schema;
+using nucleotidz.recommendation.infrastructure.Interfaces;
 
 namespace nucleotidz.recommendation.engine.schema.manager
 {
@@ -6,19 +7,19 @@ namespace nucleotidz.recommendation.engine.schema.manager
     {
         public async Task CreateCollection(bool dropAndCreate)
         {
-            foreach (var schema in VectorSchema.Schemas)
+            foreach (KeyValuePair<string, Milvus.Client.CollectionSchema> schema in VectorSchema.Schemas)
             {
-                var collectionExists = await vectorDatabaseHelper.HasCollection(schema.Key);
+                bool collectionExists = await vectorDatabaseHelper.HasCollection(schema.Key);
 
                 if (collectionExists && dropAndCreate)
                 {
-                    var existingCollection = vectorDatabaseHelper.GetCollection(schema.Key);
+                    Milvus.Client.MilvusCollection existingCollection = vectorDatabaseHelper.GetCollection(schema.Key);
                     await existingCollection.DropAsync();
                 }
 
                 if (!collectionExists || dropAndCreate)
                 {
-                    await vectorDatabaseHelper.CreateCollection(schema.Key, schema.Value);
+                    _ = await vectorDatabaseHelper.CreateCollection(schema.Key, schema.Value);
                 }
             }
         }

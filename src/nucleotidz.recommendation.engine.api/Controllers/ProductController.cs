@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using nucleotidz.recommendation.engine.api.Request.Product;
-using nucleotidz.recommendation.infrastructure.Interfaces;
-using nucleotidz.recommendation.service.Implementation;
+﻿using Microsoft.AspNetCore.Mvc;
 using nucleotidz.recommendation.service.Interfaces;
 
 namespace nucleotidz.recommendation.engine.api.Controllers
@@ -23,7 +19,7 @@ namespace nucleotidz.recommendation.engine.api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(IFormFile file)
         {
-            int totalCreated = await productService.Create(file.OpenReadStream());
+            _ = await productService.Create(file.OpenReadStream());
             return Created();
         }
 

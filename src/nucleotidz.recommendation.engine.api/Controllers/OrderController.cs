@@ -12,9 +12,9 @@ namespace nucleotidz.recommendation.engine.api.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(string productCode, string customerEmail)
+        public IActionResult Create(string productCode, string customerEmail)
         {
-            orderService.Create(productCode, customerEmail);
+            _ = orderService.Create(productCode, customerEmail);
             return Created();
         }
     }

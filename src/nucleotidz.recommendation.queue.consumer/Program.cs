@@ -4,16 +4,16 @@ using nucleotidz.recommendation.infrastructure;
 using nucleotidz.recommendation.queue.consumer;
 using System.Reflection;
 
-var builder = Host.CreateDefaultBuilder(args);
+IHostBuilder builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureServices((config, services) =>
     {
-        services.AddArtificialIntelligence(config.Configuration);
-        services.AddVectorRepoistory().AddRepoistory();
-        services.AddMassTransit(busConfigurator =>
+        _ = services.AddArtificialIntelligence(config.Configuration);
+        _ = services.AddVectorRepoistory().AddRepoistory();
+        _ = services.AddMassTransit(busConfigurator =>
         {
             busConfigurator.SetKebabCaseEndpointNameFormatter();
-            var entryAssembly = Assembly.GetExecutingAssembly();
-            busConfigurator.AddConsumer<OrderCreatedConsumer>();
+            Assembly entryAssembly = Assembly.GetExecutingAssembly();
+            _ = busConfigurator.AddConsumer<OrderCreatedConsumer>();
             busConfigurator.UsingRabbitMq((context, configurator) =>
             {
                 configurator.Host(config.Configuration["Queue:Host"], "/", h =>
@@ -22,7 +22,7 @@ builder.ConfigureServices((config, services) =>
                     h.Password(config.Configuration["Queue:Password"]);
                 });
                 configurator.ConcurrentMessageLimit = 1;
-                
+
                 configurator.ConfigureEndpoints(context);
             });
         });

@@ -1,6 +1,6 @@
 using nucleotidz.recommendation.infrastructure;
 using nucleotidz.recommendation.service;
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -12,13 +12,13 @@ builder.Services.AddServices();
 builder.Services.AddRabbitMq(builder.Configuration);
 builder.Services.AddArtificialIntelligence(builder.Configuration);
 builder.Services.AddVectorRepoistory().AddRepoistory();
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    _ = app.UseSwagger();
+    _ = app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

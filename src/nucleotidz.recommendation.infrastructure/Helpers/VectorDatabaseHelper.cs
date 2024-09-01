@@ -3,7 +3,7 @@ using nucleotidz.recommendation.infrastructure.Interfaces;
 
 namespace nucleotidz.recommendation.infrastructure.Helpers
 {
-    public class VectorDatabaseHelper : IVectorDatabaseHelper
+    public class VectorDatabaseHelper : IVectorDatabaseHelper, IDisposable
     {
         private readonly MilvusClient milvusClient;
         public VectorDatabaseHelper()
@@ -12,7 +12,7 @@ namespace nucleotidz.recommendation.infrastructure.Helpers
         }
         public async Task<bool> HasCollection(string collectionName)
         {
-            var k = await milvusClient.HealthAsync();
+            _ = await milvusClient.HealthAsync();
             return await milvusClient.HasCollectionAsync(collectionName);
         }
         public async Task<MilvusCollection> CreateCollection(string collectionName, CollectionSchema schema)
@@ -25,8 +25,13 @@ namespace nucleotidz.recommendation.infrastructure.Helpers
         }
         public async Task CreateIndex(string collectionName, string indexName, string fieldName)
         {
-            var collection = milvusClient.GetCollection(collectionName);
+            MilvusCollection collection = milvusClient.GetCollection(collectionName);
             await collection.CreateIndexAsync(fieldName: fieldName, indexType: IndexType.Flat, metricType: SimilarityMetricType.L2, indexName: indexName);
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

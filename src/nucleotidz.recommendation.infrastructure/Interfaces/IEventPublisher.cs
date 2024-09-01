@@ -1,6 +1,6 @@
 ﻿namespace nucleotidz.recommendation.infrastructure.Interfaces
 {
-    public interface IEventPublisher 
+    public interface IEventPublisher
 
     {
         Task Publish<T>(T @event)

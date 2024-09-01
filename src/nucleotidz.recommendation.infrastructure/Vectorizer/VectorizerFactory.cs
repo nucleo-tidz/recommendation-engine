@@ -2,13 +2,13 @@
 using Microsoft.SemanticKernel.Embeddings;
 using nucleotidz.recommendation.infrastructure.Interfaces;
 
-namespace nucleotidz.recommendation.infrastructure
+namespace nucleotidz.recommendation.infrastructure.Vectorizer
 {
     public class VectorizerFactory(Kernel kernel) : IVectorizerFactory
     {
         public ITextEmbeddingGenerationService Create()
         {
-           return kernel.GetRequiredService<ITextEmbeddingGenerationService>();
+            return kernel.GetRequiredService<ITextEmbeddingGenerationService>();
         }
     }
 }

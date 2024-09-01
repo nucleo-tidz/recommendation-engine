@@ -21,17 +21,15 @@ namespace nucleotidz.recommendation.service.Implementation
         }
         public async Task<int> Create(Stream stream)
         {
-            using (var reader = new StreamReader(stream))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                List<ProductEntity> products = csv.GetRecords<ProductEntity>().ToList();
-                int records = await productRepository.Save(products);
-                products.ForEach(async product =>
-                await eventPublisher.Publish(
-                    new ProductCreatedEvent { @event = "Product Created", Code = product.Code, Description = product.Description, Name = product.Name }
-                    ));
-                return records;
-            }
+            using StreamReader reader = new(stream);
+            using CsvReader csv = new(reader, CultureInfo.InvariantCulture);
+            List<ProductEntity> products = csv.GetRecords<ProductEntity>().ToList();
+            int records = await productRepository.Save(products);
+            products.ForEach(async product =>
+            await eventPublisher.Publish(
+                new ProductCreatedEvent { @event = "Product Created", Code = product.Code, Description = product.Description, Name = product.Name }
+                ));
+            return records;
         }
 
         public async Task<IEnumerable<ProductEntity>> Get()

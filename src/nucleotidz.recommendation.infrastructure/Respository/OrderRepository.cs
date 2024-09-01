@@ -2,7 +2,6 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using nucleotidz.recommendation.infrastructure.Interfaces;
-using System.Text.Json;
 
 namespace nucleotidz.recommendation.infrastructure.Respository
 {
@@ -15,9 +14,9 @@ namespace nucleotidz.recommendation.infrastructure.Respository
         }
         public async Task<int> Create(string productCode, string customerEmail)
         {
-            var sql = @"Insert into dbo.[order] values (@productCode,@customerEmail)";
-            await using var connection = new SqlConnection(_connectionString);
-            return await connection.ExecuteAsync(sql, new { productCode = productCode, customerEmail = customerEmail });
+            string sql = @"Insert into dbo.[order] values (@productCode,@customerEmail)";
+            await using SqlConnection connection = new(_connectionString);
+            return await connection.ExecuteAsync(sql, new { productCode, customerEmail });
         }
     }
 }

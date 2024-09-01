@@ -18,7 +18,7 @@ namespace nucleotidz.recommendation.engine.schema.manager.Controllers
 
         [HttpPost("create/index")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(string collectionName, string indexName,  string fieldName)
+        public async Task<IActionResult> Create(string collectionName, string indexName, string fieldName)
         {
             await schemaManager.CreateIndex(collectionName, indexName, fieldName);
             return Created();
