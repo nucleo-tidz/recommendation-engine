@@ -8,7 +8,7 @@ var builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureServices((config, services) =>
     {
         services.AddArtificialIntelligence(config.Configuration);
-        services.AddVectorRepoistory();
+        services.AddVectorRepoistory().AddRepoistory();
         services.AddMassTransit(busConfigurator =>
         {
             busConfigurator.SetKebabCaseEndpointNameFormatter();
@@ -21,6 +21,8 @@ builder.ConfigureServices((config, services) =>
                     h.Username(config.Configuration["Queue:Username"]);
                     h.Password(config.Configuration["Queue:Password"]);
                 });
+                configurator.ConcurrentMessageLimit = 1;
+                
                 configurator.ConfigureEndpoints(context);
             });
         });

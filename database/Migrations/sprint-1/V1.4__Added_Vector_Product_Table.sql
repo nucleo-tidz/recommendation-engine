@@ -7,6 +7,7 @@ BEGIN
 	CREATE TABLE [dbo].[ProductVector]
 	(
 	  Id INT NOT NULL IDENTITY(1,1),
+	  ProductCode NVARCHAR(50) NOT NULL,
 	  ProductVector NVARCHAR(MAX),
 	  CONSTRAINT PK_ProductVector
             PRIMARY KEY

@@ -28,7 +28,12 @@ namespace nucleotidz.recommendation.service.Implementation
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 List<ProductEntity> products = csv.GetRecords<ProductEntity>().ToList();
-              return  await  productRepository.Save(products);
+                int records = await productRepository.Save(products);
+                products.ForEach(async product =>
+                await eventPublisher.Publish(
+                    new ProductCreatedEvent { @event = "Product Created", Code = product.Code, Description = product.Description, Name = product.Name }
+                    ));
+                return records;
             }
         }
     }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using nucleotidz.recommendation.infrastructure.Interfaces;
 using nucleotidz.recommendation.model;
 using System.Data;
+using System.Text.Json;
 
 namespace nucleotidz.recommendation.infrastructure.Respository
 {
@@ -36,6 +37,19 @@ namespace nucleotidz.recommendation.infrastructure.Respository
 			                VALUES (s.Code, s.Name, s.Description);";
             await using var connection = new SqlConnection(_connectionString);
             return await connection.ExecuteAsync(sql, new { product = productTable.AsTableValuedParameter("[dbo].[Product_DataType]") });
+        }
+        public async Task<int> Save(string productCode, float[] vectors)
+        {
+            string vector = JsonSerializer.Serialize(vectors);
+            var sql = @"MERGE dbo.ProductVector AS target
+                         USING (SELECT @code AS code, @vector AS vector) AS source
+                             ON target.productcode = source.code
+                         WHEN MATCHED THEN
+                             UPDATE SET target.vector = source.vector
+                         WHEN NOT MATCHED THEN
+                             INSERT (productcode, vector) VALUES (source.code, source.vector);";
+            await using var connection = new SqlConnection(_connectionString);
+            return await connection.ExecuteAsync(sql, new { code = productCode, vector = vector });
         }
     }
 }
