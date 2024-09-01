@@ -32,7 +32,7 @@ namespace nucleotidz.recommendation.infrastructure.Respository
             MilvusCollection milvusCollection = vectorDatabaseHelper.GetCollection("products");
             await milvusCollection.LoadAsync();
             await milvusCollection.WaitForCollectionLoadAsync();
-            _ = await milvusCollection.SearchAsync(vectorFieldName: "product_description", vectors: vectors, SimilarityMetricType.L2, limit: 10, parameters);
+           var result = await milvusCollection.SearchAsync(vectorFieldName: "product_description", vectors: vectors, SimilarityMetricType.L2, limit: 10, parameters);
             await milvusCollection.ReleaseAsync();
         }
     }
