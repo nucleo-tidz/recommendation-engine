@@ -15,4 +15,11 @@ Now, think about those same two dots, but instead of looking at their distance, 
 
 ![image](https://github.com/user-attachments/assets/6ce87407-fa26-401b-a767-5b3d5c9776f1)
 
+# Architecture 
+
+- Product Service: Adds a product to an SQL database and sends a product creation event to RabbitMQ.
+- Event Consumer: Receives the data, sends it to a large language model to convert it into a vector, saves the converted vector into a vector database and into SQL for each product.
+- Order Service: Places an order for the chosen product.
+- Suggest Service: Based on the last order, searches the vector database for similar products and returns the most similar ones.
+
 ![Recommendation Engine drawio](https://github.com/user-attachments/assets/097e44ac-ec5d-43fb-8427-9fde5e153393)
