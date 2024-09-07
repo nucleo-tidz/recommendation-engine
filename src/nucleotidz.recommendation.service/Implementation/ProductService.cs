@@ -8,16 +8,15 @@ using System.Text.Json;
 
 namespace nucleotidz.recommendation.service.Implementation
 {
-    public class ProductService(IEventPublisher eventPublisher, ITextVectorizer vectorizer,
+    public class ProductService(IEventPublisher eventPublisher,
         IProductVectorRepository productVectorRepository,
         IProductRepository productRepository) : IProductService
     {
         public async Task<IEnumerable<string>> Suggest(string email)
         {
             string lastOrder = await productRepository.Get(email);
-            float[] vector = JsonSerializer.Deserialize<float[]>(lastOrder);
-            ReadOnlyMemory<float>[] rvector = new ReadOnlyMemory<float>[1] { vector };
-            return await productVectorRepository.Search(rvector);
+            var data = await productVectorRepository.Search(lastOrder);
+            return data.Select(x=>x.Metadata.Description);
         }
         public async Task<int> Create(Stream stream)
         {

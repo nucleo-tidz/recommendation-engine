@@ -1,42 +1,34 @@
-﻿using Milvus.Client;
+﻿using MassTransit.Internals;
+using Microsoft.Extensions.Configuration;
+using Microsoft.SemanticKernel.Connectors.Milvus;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.SemanticKernel.Memory;
+using Milvus.Client;
 using nucleotidz.recommendation.infrastructure.Interfaces;
 
 namespace nucleotidz.recommendation.infrastructure.Respository
 {
-    public class ProductVectorRepository(IVectorDatabaseHelper vectorDatabaseHelper) : IProductVectorRepository
+    public class ProductVectorRepository : IProductVectorRepository
     {
-        public async Task SaveProductVector(ReadOnlyMemory<float>[] vectors, string productcode, string productName)
+        private readonly string ProductCollection = "productcollection";
+        private readonly ISemanticTextMemory memory;
+        public ProductVectorRepository(IConfiguration configuration)
         {
-            if (await vectorDatabaseHelper.HasCollection("products"))
-            {
-                MilvusCollection milvusCollection = vectorDatabaseHelper.GetCollection("products");
-                _ = await milvusCollection.UpsertAsync(new FieldData[]
-                                       {
-
-                                                  FieldData.Create("product_code",new string[]{ productcode}),
-                                                  FieldData.Create("product_name", new string[]{ productName}),
-                                                  FieldData.CreateFloatVector("product_description", vectors)
-                                       });
-            }
+            //configuration["AzureOpenAI:Endpoint"]
+            //     configuration["AzureOpenAI:AuthKey"]
+#pragma warning disable SKEXP0020 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+            memory = new MemoryBuilder()
+                    .WithAzureOpenAITextEmbeddingGeneration("vectoriser", "https://nucleo-tidz.openai.azure.com/", configuration["AzureOpenAI:AuthKey"])
+                     .WithMemoryStore(new MilvusMemoryStore("standalone", metricType: SimilarityMetricType.Ip)).Build();
+#pragma warning restore SKEXP0020 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         }
-        public async Task<IEnumerable<string>> Search(ReadOnlyMemory<float>[] vectors)
+        public async Task SaveProductVector(string description, string productcode, string productName)
         {
-            SearchParameters parameters = new()
-            {
-                OutputFields = { "product_name" },
-                ConsistencyLevel = ConsistencyLevel.Strong,
-                ExtraParameters = { ["nprobe"] = "1024" },
-
-            };
-
-            MilvusCollection milvusCollection = vectorDatabaseHelper.GetCollection("products");
-            await milvusCollection.LoadAsync();
-            await milvusCollection.WaitForCollectionLoadAsync();
-            var result = await milvusCollection.SearchAsync(vectorFieldName: "product_description", vectors: vectors, SimilarityMetricType.L2, limit: 10, parameters);
-            string[] searchResult = ((FieldData<string>)result.FieldsData[0]).Data.ToArray();
-            await milvusCollection.ReleaseAsync();
-            return searchResult;
+            _ = await memory.SaveInformationAsync(ProductCollection, id: productcode, text: description, description: $"{productName}::${description}");
+        }
+        public async Task<IList<MemoryQueryResult>> Search(string description)
+        {
+            return await memory.SearchAsync(ProductCollection, description, limit: 10).ToListAsync();
         }
     }
-
 }

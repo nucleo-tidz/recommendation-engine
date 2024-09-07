@@ -10,7 +10,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 builder.Services.AddRabbitMq(builder.Configuration);
-builder.Services.AddArtificialIntelligence(builder.Configuration);
 builder.Services.AddVectorRepoistory().AddRepoistory();
 WebApplication app = builder.Build();
 
