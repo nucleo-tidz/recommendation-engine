@@ -7,7 +7,7 @@ using System.Reflection;
 IHostBuilder builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureServices((config, services) =>
     {
-        _ = services.AddVectorRepoistory().AddRepoistory();
+        _ = services.AddVectorRepoistory().AddSemanticMemory(config.Configuration).AddRepoistory();
         _ = services.AddMassTransit(busConfigurator =>
         {
             busConfigurator.SetKebabCaseEndpointNameFormatter();
