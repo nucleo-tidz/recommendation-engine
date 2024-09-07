@@ -24,8 +24,6 @@ namespace nucleotidz.recommendation.infrastructure
 #pragma warning restore SKEXP0020 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
                    return memoryBuilder.Build();
                });
-
-
         }
         public static IServiceCollection AddVectorRepoistory(this IServiceCollection services)
         {

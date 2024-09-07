@@ -1,9 +1,5 @@
 ﻿using MassTransit.Internals;
-using Microsoft.Extensions.Configuration;
-using Microsoft.SemanticKernel.Connectors.Milvus;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Memory;
-using Milvus.Client;
 using nucleotidz.recommendation.infrastructure.Interfaces;
 
 namespace nucleotidz.recommendation.infrastructure.Respository
