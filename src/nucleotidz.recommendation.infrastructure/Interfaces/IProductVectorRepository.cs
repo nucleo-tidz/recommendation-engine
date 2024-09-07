@@ -1,8 +1,10 @@
-﻿namespace nucleotidz.recommendation.infrastructure.Interfaces
+﻿using Microsoft.SemanticKernel.Memory;
+
+namespace nucleotidz.recommendation.infrastructure.Interfaces
 {
     public interface IProductVectorRepository
     {
-        Task SaveProductVector(ReadOnlyMemory<float>[] vectors, string productcode, string productName);
-        Task<IEnumerable<string>> Search(ReadOnlyMemory<float>[] vectors);
+        Task SaveProductVector(string description, string productcode, string productName);
+        Task<IList<MemoryQueryResult>> Search(string description);
     }
 }

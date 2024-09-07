@@ -38,19 +38,6 @@ namespace nucleotidz.recommendation.infrastructure.Respository
             await using SqlConnection connection = new(_connectionString);
             return await connection.ExecuteAsync(sql, new { product = productTable.AsTableValuedParameter("[dbo].[Product_DataType]") });
         }
-        public async Task<int> Save(string productCode, float[] vectors)
-        {
-            string vector = JsonSerializer.Serialize(vectors);
-            string sql = @"MERGE dbo.ProductVector AS target
-                         USING (SELECT @code AS code, @vector AS vector) AS source
-                             ON target.productcode = source.code
-                         WHEN MATCHED THEN
-                             UPDATE SET target.vector = source.vector
-                         WHEN NOT MATCHED THEN
-                             INSERT (productcode, vector) VALUES (source.code, source.vector);";
-            await using SqlConnection connection = new(_connectionString);
-            return await connection.ExecuteAsync(sql, new { code = productCode, vector });
-        }
         public async Task<IEnumerable<ProductEntity>> Get()
         {
             string sql = @"select Code,Name,Description from dbo.Product";
@@ -60,8 +47,7 @@ namespace nucleotidz.recommendation.infrastructure.Respository
 
         public async Task<string> Get(string Email)
         {
-            string sql = @"select pv.Vector from dbo.Product p
-                       join dbo.ProductVector pv on p.Code=pv.ProductCode
+            string sql = @"select p.Description from dbo.Product p
                        join  dbo.[Order] o on  o.ProductCode=p.Code
                        where o.CustomerEmail=@email";
             await using SqlConnection connection = new(_connectionString);

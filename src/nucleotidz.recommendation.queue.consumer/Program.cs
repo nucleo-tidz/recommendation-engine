@@ -7,7 +7,6 @@ using System.Reflection;
 IHostBuilder builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureServices((config, services) =>
     {
-        _ = services.AddArtificialIntelligence(config.Configuration);
         _ = services.AddVectorRepoistory().AddRepoistory();
         _ = services.AddMassTransit(busConfigurator =>
         {
@@ -26,6 +25,5 @@ builder.ConfigureServices((config, services) =>
                 configurator.ConfigureEndpoints(context);
             });
         });
-        //  services.AddRabbitMqConsumer(config.Configuration);
     }).Build()
     .Run();
