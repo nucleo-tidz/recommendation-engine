@@ -31,7 +31,6 @@ namespace nucleotidz.recommendation.infrastructure.Helpers
         }
         public async Task DropCollection()
         {
-            
             var collection = await milvusClient.ListCollectionsAsync();
             foreach (var item in collection)
             {

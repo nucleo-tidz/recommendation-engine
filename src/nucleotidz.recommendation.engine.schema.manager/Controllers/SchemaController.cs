@@ -6,7 +6,7 @@ namespace nucleotidz.recommendation.engine.schema.manager.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class SchemaController(ISchemaManager schemaManager,IVectorDatabaseHelper vectorDatabaseHelper) : ControllerBase
+    public class SchemaController(ISchemaManager schemaManager, IVectorDatabaseHelper vectorDatabaseHelper) : ControllerBase
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -31,6 +31,5 @@ namespace nucleotidz.recommendation.engine.schema.manager.Controllers
             await vectorDatabaseHelper.DropCollection();
             return NoContent();
         }
-
     }
 }
