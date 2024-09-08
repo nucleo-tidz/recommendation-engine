@@ -16,7 +16,8 @@ namespace nucleotidz.recommendation.service.Implementation
         {
             string lastOrder = await productRepository.Get(email);
             var data = await productVectorRepository.Search(lastOrder);
-            return data.Select(x=>x.Metadata.Description);
+
+            return data.Select(x=>x.Metadata.Description.Replace("::$","--->"));
         }
         public async Task<int> Create(Stream stream)
         {

@@ -20,7 +20,7 @@ namespace nucleotidz.recommendation.infrastructure.Respository
         }
         public async Task<IEnumerable<OrderEntity>> Get(string customerEmail)
         {
-            string sql = @"SELECT [ProductCode] as code  ,p.[Name],p.Description  ,[OrderDate]  FROM [nucleotidz].[dbo].[Order] o join dbo.Product p on o.ProductCode=p.Code where customerEmail =@customerEmail";
+            string sql = @"SELECT [ProductCode] as code  ,p.[Name],p.Description  ,[OrderDate]  FROM [nucleotidz].[dbo].[Order] o join dbo.Product p on o.ProductCode=p.Code where customerEmail =@customerEmail order by o.OrderDate desc";
             await using SqlConnection connection = new(_connectionString);
             return await connection.QueryAsync<OrderEntity>(sql, new { customerEmail });
         }

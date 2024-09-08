@@ -49,7 +49,7 @@ namespace nucleotidz.recommendation.infrastructure.Respository
         {
             string sql = @"select p.Description from dbo.Product p
                        join  dbo.[Order] o on  o.ProductCode=p.Code
-                       where o.CustomerEmail=@email";
+                       where o.CustomerEmail=@email order by o.OrderDate desc";
             await using SqlConnection connection = new(_connectionString);
             return await connection.QueryFirstOrDefaultAsync<string>(sql, new { email = Email });
         }

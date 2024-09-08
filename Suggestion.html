@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Product Grid</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Left Side: Store Name and Links -->
+            <div class="flex items-center space-x-4">
+                <!--<div class="text-xl font-bold">My Store</div>-->
+                <div class="space-x-4">
+                    <a href="Home.html" class="text-gray-700 hover:text-blue-500">Home</a>
+                    <a href="Orders.html" class="text-gray-700 hover:text-blue-500">Orders</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-500">Suggestion</a>
+                </div>
+            </div>
+            <!-- Right Side: User Email -->
+            <div id="user-email" class="text-gray-500"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-8">
+        <h1 class="text-2xl font-bold mb-4">Sugeestion</h1>
+        <ul id="text-list" class="list-disc pl-5 space-y-2">
+            <!--<li class="bg-white p-4 rounded shadow-md">Text Item 1</li>
+            <li class="bg-white p-4 rounded shadow-md">Text Item 2</li>
+            <li class="bg-white p-4 rounded shadow-md">Text Item 3</li>
+            <li class="bg-white p-4 rounded shadow-md">Text Item 4</li>
+            <li class="bg-white p-4 rounded shadow-md">Text Item 5</li>-->
+        </ul>
+    </div>
+
+    <!-- jQuery Script -->
+    <script>$(document).ready(function () {
+
+            $("#user-email").text(localStorage.getItem("userEmail"));
+
+            var serviceUrl = "https://localhost:49177/api/Product/suggest?email=" + localStorage.getItem("userEmail") +"";
+            $.ajax({
+                url: serviceUrl,
+                type: "GET",
+                crossDomain: true,
+                success: function (data) {
+                    // Loop through each product in the response
+                    $.each(data, function (index, item) {
+                        // Create HTML for each product row
+                        var listItem = `<li class="bg-white p-4 rounded shadow-md">${item}</li>`;
+                        $('#text-list').append(listItem);
+                    });
+                   
+                },
+                error: function () {
+                    alert("Failed to load products from the service.");
+                }
+            });
+        });</script>
+</body>
+</html>
