@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="Script\Suggestion.js"></script>
+    <script type="text/javascript" src="Script\Variable.js"></script>
 </head>
 <body class="bg-gray-100">
     <!-- Navigation Bar -->
@@ -29,39 +31,10 @@
 
     <!-- Main Content -->
     <div class="container mx-auto p-8">
-        <h1 class="text-2xl font-bold mb-4">Sugeestion</h1>
+        <h3 class="text-2xl font-bold mb-4">You may alos like</h3>
         <ul id="text-list" class="list-disc pl-5 space-y-2">
-            <!--<li class="bg-white p-4 rounded shadow-md">Text Item 1</li>
-            <li class="bg-white p-4 rounded shadow-md">Text Item 2</li>
-            <li class="bg-white p-4 rounded shadow-md">Text Item 3</li>
-            <li class="bg-white p-4 rounded shadow-md">Text Item 4</li>
-            <li class="bg-white p-4 rounded shadow-md">Text Item 5</li>-->
         </ul>
     </div>
 
-    <!-- jQuery Script -->
-    <script>$(document).ready(function () {
-
-            $("#user-email").text(localStorage.getItem("userEmail"));
-
-            var serviceUrl = "https://localhost:49177/api/Product/suggest?email=" + localStorage.getItem("userEmail") +"";
-            $.ajax({
-                url: serviceUrl,
-                type: "GET",
-                crossDomain: true,
-                success: function (data) {
-                    // Loop through each product in the response
-                    $.each(data, function (index, item) {
-                        // Create HTML for each product row
-                        var listItem = `<li class="bg-white p-4 rounded shadow-md">${item}</li>`;
-                        $('#text-list').append(listItem);
-                    });
-                   
-                },
-                error: function () {
-                    alert("Failed to load products from the service.");
-                }
-            });
-        });</script>
 </body>
 </html>
