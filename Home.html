@@ -3,13 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Product Grid</title>
+    <title>Suggetion Engine</title>
     <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .toast {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .toast-enter {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .toast-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast-exit {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast-exit-active {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
+    <div id="toast-container" class="toast hidden">
+        <div class="bg-green-500 text-white p-4 rounded-lg shadow-lg">
+            <p class="text-lg">Order Placed Succesfully.</p>
+        </div>
+    </div>
     <!-- Navigation Bar -->
     <nav class="bg-white shadow p-4">
         <div class="container mx-auto flex justify-between items-center">
@@ -42,16 +75,28 @@
     <script>
         $(document).ready(function () {
 
+            function showToast() {
+                const toastContainer = document.getElementById('toast-container');
+                toastContainer.classList.remove('hidden', 'toast-exit');
+                toastContainer.classList.add('toast-enter');
+                setTimeout(() => {
+                    toastContainer.classList.remove('toast-enter');
+                    toastContainer.classList.add('toast-exit');
+                    setTimeout(() => {
+                        toastContainer.classList.add('hidden');
+                    }, 15000); // Match the duration of the exit animation
+                }, 500); // Show toast for 3 seconds
+            }
             function PlaceOrder(code) {
                 var serviceUrl = "https://localhost:49177/api/Order";
-                
+
                 var urlWithParams = serviceUrl + "?productCode=" + encodeURIComponent(code) + "&customerEmail=" + encodeURIComponent(localStorage.getItem("userEmail"));
                 $.ajax({
                     url: urlWithParams,
                     type: "POST",
-                    contentType: "application/json",                 
+                    contentType: "application/json",
                     success: function () {
-                        alert("Order placed successfully.");
+                        showToast();
                     },
                     error: function () {
                         alert("Failed to place order.");
@@ -71,11 +116,11 @@
                     $.each(data, function (index, product) {
                         // Create HTML for each product row
                         var productRow = `
-                          <div class="p-4 border">${product.code}</div>
-                          <div class="p-4 border">${product.name}</div>
-                          <div class="p-4 border">${product.description}</div>
-                          <div class="p-4 border"><button class="buy-btn bg-blue-500 text-white px-4 py-2 rounded" data-product-code="${product.code}">Buy</button></div>
-                        `;
+                              <div class="p-4 border">${product.code}</div>
+                              <div class="p-4 border">${product.name}</div>
+                              <div class="p-4 border">${product.description}</div>
+                              <div class="p-4 border"><button class="buy-btn bg-blue-500 text-white px-4 py-2 rounded" data-product-code="${product.code}">Buy</button></div>
+                            `;
                         // Append the product row to the grid
                         $("#product-grid").append(productRow);
                     });
