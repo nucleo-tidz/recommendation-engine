@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+        <form id="login-form">
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 mb-2">Email</label>
+                <input type="email" id="email" class="w-full p-2 border border-gray-300 rounded" required>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Login</button>
+        </form>
+    </div>
+
+    <!-- jQuery Script -->
+    <script>
+    $(document).ready(function () {
+      // Handle the login form submission
+      $("#login-form").submit(function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get the email value from the input field
+        var email = $("#email").val();
+
+        // Save the email in localStorage
+        localStorage.setItem("userEmail", email);
+
+        // Redirect to the product grid page
+          window.location.href = "Home.html";
+      });
+    });
+    </script>
+</body>
+</html>

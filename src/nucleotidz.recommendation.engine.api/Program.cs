@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 builder.Services.AddRabbitMq(builder.Configuration);
+builder.Services.AddCors();
 builder.Services.AddVectorRepoistory().AddRepoistory();
 WebApplication app = builder.Build();
 
@@ -20,6 +21,12 @@ if (app.Environment.IsDevelopment())
     _ = app.UseSwagger();
     _ = app.UseSwaggerUI();
 }
+
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
 
 app.UseHttpsRedirection();
 

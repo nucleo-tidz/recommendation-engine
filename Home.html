@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Product Grid</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Left Side: Store Name and Links -->
+            <div class="flex items-center space-x-4">
+                <!--<div class="text-xl font-bold">My Store</div>-->
+                <div class="space-x-4">
+                    <a href="#" class="text-gray-700 hover:text-blue-500">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-500">Bought</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-500">Suggestion</a>
+                </div>
+            </div>
+            <!-- Right Side: User Email -->
+            <div id="user-email" class="text-gray-500"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-8">
+        <div class="grid grid-cols-4 gap-4" id="product-grid">
+            <!-- Product Header -->
+            <div class="font-bold text-lg p-4 border-b">Product Code</div>
+            <div class="font-bold text-lg p-4 border-b">Product Name</div>
+            <div class="font-bold text-lg p-4 border-b">Product Description</div>
+            <div class="font-bold text-lg p-4 border-b">Buy</div>
+        </div>
+    </div>
+
+    <!-- jQuery Script -->
+    <script>
+        $(document).ready(function () {
+
+            function PlaceOrder(code) {
+                var serviceUrl = "https://localhost:49177/api/Order";
+                
+                var urlWithParams = serviceUrl + "?productCode=" + encodeURIComponent(code) + "&customerEmail=" + encodeURIComponent(localStorage.getItem("userEmail"));
+                $.ajax({
+                    url: urlWithParams,
+                    type: "POST",
+                    contentType: "application/json",                 
+                    success: function () {
+                        alert("Order placed successfully.");
+                    },
+                    error: function () {
+                        alert("Failed to place order.");
+                    }
+                });
+            }
+
+            $("#user-email").text(localStorage.getItem("userEmail"));
+
+            var serviceUrl = "https://localhost:49177/api/Product";
+            $.ajax({
+                url: serviceUrl,
+                type: "GET",
+                crossDomain: true,
+                success: function (data) {
+                    // Loop through each product in the response
+                    $.each(data, function (index, product) {
+                        // Create HTML for each product row
+                        var productRow = `
+                          <div class="p-4 border">${product.code}</div>
+                          <div class="p-4 border">${product.name}</div>
+                          <div class="p-4 border">${product.description}</div>
+                          <div class="p-4 border"><button class="buy-btn bg-blue-500 text-white px-4 py-2 rounded" data-product-code="${product.code}">Buy</button></div>
+                        `;
+                        // Append the product row to the grid
+                        $("#product-grid").append(productRow);
+                    });
+
+                    // Attach click event to Buy buttons
+                    $(".buy-btn").click(function () {
+                        var productCode = $(this).data("product-code");
+                        PlaceOrder(productCode)
+
+
+                    });
+                },
+                error: function () {
+                    alert("Failed to load products from the service.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
