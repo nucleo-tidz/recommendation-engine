@@ -24,13 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{6B77553B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nucleotidz.recommendation.engine.schema.manager", "src\nucleotidz.recommendation.engine.schema.manager\nucleotidz.recommendation.engine.schema.manager.csproj", "{7F28091C-8906-4E80-85F5-1051C16D1109}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{98706414-002D-4FE7-B9CF-818CE85CA028}"
-	ProjectSection(SolutionItems) = preProject
-		Home.html = Home.html
-		Login.html = Login.html
-		Orders.html = Orders.html
-		Suggestion.html = Suggestion.html
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nucleotidz.recommendation.frontend", "nucleotidz.recommendation.frontend", "{98706414-002D-4FE7-B9CF-818CE85CA028}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
