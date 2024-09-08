@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using nucleotidz.recommendation.infrastructure.Interfaces;
 
 namespace nucleotidz.recommendation.engine.schema.manager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class SchemaController(ISchemaManager schemaManager) : ControllerBase
+    public class SchemaController(ISchemaManager schemaManager,IVectorDatabaseHelper vectorDatabaseHelper) : ControllerBase
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -22,6 +23,13 @@ namespace nucleotidz.recommendation.engine.schema.manager.Controllers
         {
             await schemaManager.CreateIndex(collectionName, indexName, fieldName);
             return Created();
+        }
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> Delete()
+        {
+            await vectorDatabaseHelper.DropCollection();
+            return NoContent();
         }
 
     }

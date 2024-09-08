@@ -8,6 +8,7 @@ namespace nucleotidz.recommendation.infrastructure.Interfaces
         Task<MilvusCollection> CreateCollection(string collectionName, CollectionSchema schema);
         MilvusCollection GetCollection(string collectionName);
         Task CreateIndex(string collectionName, string indexName, string fieldName);
+        Task DropCollection();
 
     }
 }

@@ -13,6 +13,7 @@ namespace nucleotidz.recommendation.infrastructure.Helpers
         public async Task<bool> HasCollection(string collectionName)
         {
             _ = await milvusClient.HealthAsync();
+
             return await milvusClient.HasCollectionAsync(collectionName);
         }
         public async Task<MilvusCollection> CreateCollection(string collectionName, CollectionSchema schema)
@@ -28,6 +29,14 @@ namespace nucleotidz.recommendation.infrastructure.Helpers
             MilvusCollection collection = milvusClient.GetCollection(collectionName);
             await collection.CreateIndexAsync(fieldName: fieldName, indexType: IndexType.Flat, metricType: SimilarityMetricType.L2, indexName: indexName);
         }
-
+        public async Task DropCollection()
+        {
+            
+            var collection = await milvusClient.ListCollectionsAsync();
+            foreach (var item in collection)
+            {
+                await GetCollection(item.Name).DropAsync();
+            }
+        }
     }
 }
