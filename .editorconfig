@@ -23,7 +23,11 @@ csharp_style_expression_bodied_local_functions = false:silent
 dotnet_diagnostic.SKEXP0010.severity = silent
 
 # SKEXP0001: Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-dotnet_diagnostic.SKEXP0001.severity = warning
+dotnet_diagnostic.SKEXP0001.severity = silent
+
+#pragma warning disable SKEXP0020 
+dotnet_diagnostic.SKEXP0020.severity = silent
+csharp_space_around_binary_operators = before_and_after
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
@@ -91,3 +95,4 @@ dotnet_naming_style.pascal_case.required_prefix =
 dotnet_naming_style.pascal_case.required_suffix = 
 dotnet_naming_style.pascal_case.word_separator = 
 dotnet_naming_style.pascal_case.capitalization = pascal_case
+dotnet_style_prefer_simplified_interpolation = true:suggestion
