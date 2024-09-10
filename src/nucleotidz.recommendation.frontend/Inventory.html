@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggetion Engine</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="Style\Toaster.css">
+    <script type="text/javascript" src="Script\Inventory.js"></script>
+    <script type="text/javascript" src="Script\Variable.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="toast-container" class="toast hidden">
+        <div class="bg-green-500 text-white p-4 rounded-lg shadow-lg">
+            <p class="text-lg">Inventory Created Succesfully.</p>
+        </div>
+    </div>
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Left Side: Store Name and Links -->
+            <div class="flex items-center space-x-4">
+                <!--<div class="text-xl font-bold">My Store</div>-->
+                <div class="space-x-4">
+                    <a href="Home.html" class="text-gray-700 hover:text-blue-500">Home</a>
+                    <a href="Orders.html" class="text-gray-700 hover:text-blue-500">Orders</a>
+                    <a href="Suggestion.html" class="text-gray-700 hover:text-blue-500">Suggestion</a>
+                    <a href="Inventory.html" class="text-gray-700 hover:text-blue-500">Inventory</a>
+                </div>
+            </div>
+            <!-- Right Side: User Email -->
+            <div id="user-email" class="text-gray-500"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-8">
+        <!--<div class="mb-8">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="file-upload">
+            Upload File
+        </label>
+        <input id="file-upload" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-indigo-500" />
+        <button id="upload-button" class="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+            Upload
+        </button>
+    </div>-->
+
+        <div class="mb-8 p-4 bg-white rounded-lg shadow-md">
+            <label for="file-upload" class="block text-gray-700 text-sm font-medium mb-2">Choose a file to upload</label>
+
+            <div class="flex items-center">
+                <label for="file-upload" class="flex items-center cursor-pointer bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v4a4 4 0 004 4h1l2 2m4 0h1a4 4 0 004-4V7a4 4 0 00-4-4H7a4 4 0 00-4 4z"></path>
+                    </svg>
+                    <span>Select File</span>
+                </label>
+                <input id="file-upload" type="file" class="hidden" />
+                <span id="file-selected" class="ml-3 text-gray-500 text-sm italic">No file selected</span>
+            </div>
+
+            <button id="upload-button" class="mt-4 bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                Upload File
+            </button>
+        </div>
+
+
+</body>
+</html>
