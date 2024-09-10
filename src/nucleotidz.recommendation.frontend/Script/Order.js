@@ -1,7 +1,7 @@
 $(document).ready(function () {
     function CancelOrder(code) {
-        var serviceUrl = api +"/Order";
-
+        var serviceUrl = api + "/Order";
+        $('#loader-overlay').removeClass('hidden');
         var urlWithParams = serviceUrl + "?productCode=" + encodeURIComponent(code) + "&customerEmail=" + encodeURIComponent(localStorage.getItem("userEmail"));
         $.ajax({
             url: urlWithParams,
@@ -12,12 +12,16 @@ $(document).ready(function () {
             },
             error: function () {
                 alert("Failed to cancel order.");
+            },
+            complete: function () {
+                // Hide loader after upload completes
+                $('#loader-overlay').addClass('hidden');
             }
         });
     }
-
+    $('#loader-overlay').removeClass('hidden');
     $("#user-email").text(localStorage.getItem("userEmail"));
-    var serviceUrl = api +"/Order";
+    var serviceUrl = api + "/Order";
     $.ajax({
         url: serviceUrl + "?customerEmail=" + encodeURIComponent(localStorage.getItem("userEmail")),
         type: "GET",
@@ -47,6 +51,10 @@ $(document).ready(function () {
         },
         error: function () {
             alert("Failed to load products from the service.");
+        },
+        complete: function () {
+            // Hide loader after upload completes
+            $('#loader-overlay').addClass('hidden');
         }
     });
 });

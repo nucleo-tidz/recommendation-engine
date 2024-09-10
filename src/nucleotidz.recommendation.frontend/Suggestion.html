@@ -32,10 +32,18 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container mx-auto p-8">
+    <div class="container mx-auto p-8 relative">
         <h3 class="text-2xl font-bold mb-4">You may alos like</h3>
         <ul id="text-list" class="list-disc pl-5 space-y-2">
         </ul>
+
+        <div id="loader-overlay" class="hidden fixed inset-0 bg-gray-200 bg-opacity-75 backdrop-blur-md flex items-center justify-center z-50">
+            <!-- Loader Icon -->
+            <svg class="animate-spin h-12 w-12 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8h8a8 8 0 01-16 0z"></path>
+            </svg>
+        </div>
     </div>
 
 </body>

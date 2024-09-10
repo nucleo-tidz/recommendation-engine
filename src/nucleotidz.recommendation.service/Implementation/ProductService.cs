@@ -15,6 +15,10 @@ namespace nucleotidz.recommendation.service.Implementation
         public async Task<IEnumerable<string>> Suggest(string email)
         {
             string lastOrder = await productRepository.Get(email);
+            if(string.IsNullOrWhiteSpace(lastOrder))
+            {
+                return new List<string>();
+            }
             var data = await productVectorRepository.Search(lastOrder);
 
             return data.Select(x=>x.Metadata.Description.Replace("::$","--->"));

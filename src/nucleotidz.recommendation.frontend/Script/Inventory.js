@@ -16,7 +16,9 @@ $(document).ready(function () {
                 }, 15000); // Match the duration of the exit animation
             }, 500); // Show toast for 3 seconds
         }
-        $('#upload-button').click(function() {
+    $('#upload-button').click(function () {
+        $('#loader-overlay').removeClass('hidden');
+        $('#upload-status').text('Uploading Product').css('color', 'gray');
             var fileInput = $('#file-upload')[0];
             var file = fileInput.files[0];
             
@@ -39,6 +41,11 @@ $(document).ready(function () {
                 },
                 error: function(xhr, status, error) {
                     alert('File upload failed. Please try again.');
+                },
+                
+                complete: function () {
+                    // Hide loader after upload completes
+                    $('#loader-overlay').addClass('hidden');
                 }
             });
         });

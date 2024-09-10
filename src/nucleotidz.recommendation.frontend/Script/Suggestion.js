@@ -1,6 +1,7 @@
 $(document).ready(function () {
+    $('#loader-overlay').removeClass('hidden');
     $("#user-email").text(localStorage.getItem("userEmail"));
-    var serviceUrl = api +"/Product/suggest?email=" + localStorage.getItem("userEmail") + "";
+    var serviceUrl = api + "/Product/suggest?email=" + localStorage.getItem("userEmail") + "";
     $.ajax({
         url: serviceUrl,
         type: "GET",
@@ -16,6 +17,10 @@ $(document).ready(function () {
         },
         error: function () {
             alert("Failed to load products from the service.");
+        },
+        complete: function () {
+            // Hide loader after upload completes
+            $('#loader-overlay').addClass('hidden');
         }
     });
 });

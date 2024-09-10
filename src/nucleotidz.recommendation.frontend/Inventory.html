@@ -37,16 +37,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container mx-auto p-8">
-        <!--<div class="mb-8">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="file-upload">
-            Upload File
-        </label>
-        <input id="file-upload" type="file" class="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:border-indigo-500" />
-        <button id="upload-button" class="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
-            Upload
-        </button>
-    </div>-->
+    <div class="container mx-auto p-8 relative">
 
         <div class="mb-8 p-4 bg-white rounded-lg shadow-md">
             <label for="file-upload" class="block text-gray-700 text-sm font-medium mb-2">Choose a file to upload</label>
@@ -65,8 +56,16 @@
             <button id="upload-button" class="mt-4 bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                 Upload File
             </button>
-        </div>
 
+            <div id="loader-overlay" class="hidden fixed inset-0 bg-gray-200 bg-opacity-75 backdrop-blur-md flex items-center justify-center z-50">
+                <!-- Loader Icon -->
+                <svg class="animate-spin h-12 w-12 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8h8a8 8 0 01-16 0z"></path>
+                </svg>
+            </div>
+        </div>
+</div>
 
 </body>
 </html>

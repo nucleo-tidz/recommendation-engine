@@ -13,3 +13,5 @@
 *.log
 *.pubxml
 /volumes
+/src/nucleotidz.recommendation.engine.schema.manager/core
+/src/nucleotidz.recommendation.engine.api/core
